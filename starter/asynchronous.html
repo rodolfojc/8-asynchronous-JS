@@ -52,32 +52,32 @@
 
         */
 
-        const getIDs = new Promise((resolve, reject) => {
+        // const getIDs = new Promise((resolve, reject) => {
             
-            //RESOLVE
-            setTimeout(() => {
-                resolve([23,211,44,211,997]);
-            }, 1500);
-        });
+        //     //RESOLVE
+        //     setTimeout(() => {
+        //         resolve([23,211,44,211,997]);
+        //     }, 1500);
+        // });
 
-        const getRecipe = recipeID => {
-            return new Promise((resolve, reject) => {
-                setTimeout(ID => {
-                    const recipe = {title: 'Fresh Tomatos', publischer: 'Rodolfo'};
-                    resolve(`${ID}: ${recipe.title}`);                    
-                }, 1500, recipeID);
+        // const getRecipe = recipeID => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(ID => {
+        //             const recipe = {title: 'Fresh Tomatos', publischer: 'Rodolfo'};
+        //             resolve(`${ID}: ${recipe.title}`);                    
+        //         }, 1500, recipeID);
                 
-            });
-        };
+        //     });
+        // };
 
-        getRelated = publischer => {
-            return new Promise((resolve, reject) => {
-                setTimeout(pub => {
-                    const recipe = {title: 'Pizza', publischer: 'Rodolfo'};
-                    resolve(`${pub}: ${recipe.title}`);
-                }, 1500, publischer);
-            })
-        }
+        // getRelated = publischer => {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(pub => {
+        //             const recipe = {title: 'Pizza', publischer: 'Rodolfo'};
+        //             resolve(`${pub}: ${recipe.title}`);
+        //         }, 1500, publischer);
+        //     })
+        // }
 
         // IF RESOLVE
         // getIDs
@@ -96,20 +96,41 @@
         //     console.log(error);
         // });
         
-        async function getRecipeAW() {
-            const IDs = await getIDs;
-            console.log(IDs);
-            const recipe = await getRecipe(IDs[2]);
-            console.log(recipe);
-            const related = await getRelated('Rodolfo');
-            console.log(related);
+        // async function getRecipeAW() {
+        //     const IDs = await getIDs;
+        //     console.log(IDs);
+        //     const recipe = await getRecipe(IDs[2]);
+        //     console.log(recipe);
+        //     const related = await getRelated('Rodolfo');
+        //     console.log(related);
 
-            return recipe;
+        //     return recipe;
+        // }
+
+        // getRecipeAW().then(result => {
+        //     console.log(`El result is ${result}`);
+        // });
+        
+        function getWeather (woid) {
+        fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${woid}/`)
+        .then(result => {
+            console.log(result);
+            return result.json();
+        })
+        .then(data => {
+            //console.log(data);
+            const today = data.consolidated_weather[0];
+            console.log(`The tempeture in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`);
+        })
+        .catch(error => console.log(`Got an error: ${error}`));
+        
+        //https://cors-anywhere.herokuapp.com/
+        //https://crossorigin.me/
+
         }
 
-        getRecipeAW().then(result => {
-            console.log(`El result is ${result}`);
-        });
+        getWeather(2487956);
+        getWeather(44418);
         
 
                 
